@@ -10,7 +10,7 @@ app.get('/',function(req, res) {
 
 app.use('/Client',express.static(__dirname + '/Client'));
 
-serv.listen(2000);
+serv.listen(2001);
 
 
 var SOCKET_LIST = {};
@@ -21,8 +21,32 @@ var Player = function(id) {
 		x:250,
 		y:250,
 		id:id,
-		number: Math.floor(10 * Math.random())
+		rotation:0,
+		number: Math.floor(10 * Math.random()),
+		maxSpeed: 10,
+		speed: 0,
+		pressingLeft: false,
+		pressingRight: false,
+		pressingUp: false,
+		pressingDown: false
 		}
+	self.updatePosition = function() {
+		if(self.pressingLeft) {
+			self.rotation--;
+		}
+		if(self.pressingRight)
+			self.rotation++;
+		if(self.pressingUp)
+			if(self.speed < maxSpeed)
+				self.speed++;
+		if(self.pressingDown)
+			if(self.speed > -maxSpeed)
+				self.speed--;
+		if (self.rotation >= 360)
+			self.rotation = 0;
+	
+	
+	}
 		return self;
 
 }
@@ -41,6 +65,20 @@ io.sockets.on('connection', function(socket) {
 			delete SOCKET_LIST[socket.id];
 			delete PLAYER_LIST[socket.id];
 		});
+		
+		socket.on('keypress', function(data) {
+			if(data.inputId === 'left') {
+				player.pressingLeft = data.state;
+			}
+			else if(data.inputId === 'right')
+				player.pressingRight = data.state;
+			else if(data.inputId === 'up')
+				player.pressingUp = data.state;
+			else if(data.inputId === 'down')
+				player.pressingDown = data.state;
+		
+		
+		});
 });
 
 //updates positions every 40ms
@@ -49,11 +87,12 @@ setInterval(function() {
 	for (var i in PLAYER_LIST) {
 
 		var player = PLAYER_LIST[i];
-		player.x++;
-		player.y++;
+		player.updatePosition();
 		pack.push({
 			x:player.x,
 			y:player.y,
+			speed: player.speed,
+			rotation: player.rotation,
 			number: player.number
 		});
 	}
@@ -63,4 +102,4 @@ setInterval(function() {
 	}
 
 
-}, 1000/25);
+}, 40);
