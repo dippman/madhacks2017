@@ -2,13 +2,16 @@
   "name": "project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "ejs": "2.4.1",
+    "express": "4.13.3"
+  },
   "engines": {
 	"node": "6.9.5"
-	}
+  }
+  
 }
