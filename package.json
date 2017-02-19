@@ -7,9 +7,8 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "ejs": "2.4.1",
-    "express": "4.13.3",
-	"socket.io": "0.9.16"
+    "express": "*",
+	"socket.io": "*"
   },
   "engines": {
 	"node": "6.9.5"
