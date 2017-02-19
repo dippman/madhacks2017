@@ -23,8 +23,8 @@ var Player = function(id) {
 		y:250,
 		id:id,
 		rotation:0,
-		maxSpeed: 5,
-		speed: 6,
+		maxSpeed: 22,
+		speed: 22,
 		attack_timer: 5,
 		name: '',
 		pressingLeft: false,
@@ -100,8 +100,8 @@ var Bullet = function(x, y, angle) {
 		timer:0,
 		id:0
 	}
-	self.x_speed = -15 * Math.cos(angle * Math.PI/180);
-	self.y_speed = -15* Math.sin(angle * Math.PI/180);
+	self.x_speed = -45 * Math.cos(angle * Math.PI/180);
+	self.y_speed = -45* Math.sin(angle * Math.PI/180);
 	self.id = Math.random();
 
 

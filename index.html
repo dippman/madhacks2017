@@ -8,7 +8,7 @@ https://cdn.socket.io/socket.io-1.4.5.js"
 	var ctx = document.getElementById("ctx").getContext("2d");
 	ctx.font = '30px Arial';
 	var socket = io();
-	var name = window.prompt("sometext","defaultText");
+	var name = window.prompt("Enter your name:","Rupert");
 	if(name != null)
 		socket.emit('Name', {Name:name});
 	//updates the position of each object in sockets
@@ -19,7 +19,19 @@ https://cdn.socket.io/socket.io-1.4.5.js"
 			ctx.save();
 			ctx.translate(data.player[i].x +25,data.player[i].y + 25);
 			ctx.rotate(Math.PI/180 * data.player[i].rotation);
-			ctx.fillRect(-25,-25,50,50);
+			//****
+			ctx.beginPath();
+			ctx.moveTo(0,20);
+			ctx.lineTo(-50,0);
+			ctx.lineTo(0,-20);
+			ctx.closePath();
+			ctx.lineWidth = 5;
+			ctx.strokeStyle = '#666666';
+			ctx.stroke();
+			ctx.fillStyle = "FFCC00";
+			ctx.fill();
+			//*****
+			//ctx.fillRect(-25,-25,50,50);
 
 			ctx.fillText(data.player[i].name,-25,40);
 			
@@ -28,7 +40,10 @@ https://cdn.socket.io/socket.io-1.4.5.js"
 
 		}
 		for(var i = 0; i < data.bullet.length; i++) {
-			ctx.fillRect(data.bullet[i].x, data.bullet[i].y, 10, 10);
+			ctx.save();
+			ctx.rotate(Math.PI/180 * data.bullet[i].rotation);
+			ctx.fillRect(data.bullet[i].x, data.bullet[i].y + 20, 10, 10);
+			ctx.restore();
 		}
 
 	});
