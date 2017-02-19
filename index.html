@@ -4,33 +4,30 @@ solid #000000;"></canvas>
 
 <script src="
 https://cdn.socket.io/socket.io-1.4.5.js"
-><script>
+></script>
 <script>
 
 	var ctx = document.getElementById("ctx").getContext("2d");
 	ctx.font = '30px Arial';
 	var socket = io();
-	
 	//updates the position of each object in sockets
 	socket.on('newPositions', function(data) {
 		ctx.clearRect(0,0,500,500);
 		for (var i = 0; i < data.length; i++) {
+			ctx.save();
 			ctx.translate(data[i].x +25,data[i].y + 25);
 			ctx.rotate(Math.PI/180 * data[i].rotation);
-			ctx.translate(0, data[i].speed);
 			ctx.fillRect(-25,-25,50,50);
-			ctx.translate(0, -data[i].speed)
-			ctx.rotate(Math.PI/180 * -data[i].rotation);
-			ctx.translate(-(data[i].x + 25),-(data[i].y + 25));
-			
-			//ctx.fillText(data[i].number,data[i].x,data[i].y);
+			ctx.restore();
+
 		}
-		//ctx.translate(0,0);
+
 	});
 	
 	document.addEventListener('keydown', function(event) {
 		if (event.keyCode === 68) {
 			socket.emit('keypress', {inputId:'right', state:true});
+
 		}
 		else if (event.keyCode === 83)
 			socket.emit('keypress', {inputId:'down', state:true});

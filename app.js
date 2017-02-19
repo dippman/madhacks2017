@@ -22,9 +22,8 @@ var Player = function(id) {
 		y:250,
 		id:id,
 		rotation:0,
-		number: Math.floor(10 * Math.random()),
-		maxSpeed: 10,
-		speed: 0,
+		maxSpeed: 5,
+		speed: 6,
 		pressingLeft: false,
 		pressingRight: false,
 		pressingUp: false,
@@ -32,18 +31,25 @@ var Player = function(id) {
 		}
 	self.updatePosition = function() {
 		if(self.pressingLeft) {
-			self.rotation--;
+			self.rotation-= 10;
 		}
 		if(self.pressingRight)
-			self.rotation++;
-		if(self.pressingUp)
-			if(self.speed < maxSpeed)
-				self.speed++;
-		if(self.pressingDown)
-			if(self.speed > -maxSpeed)
-				self.speed--;
+			self.rotation+= 10;
+		if(self.pressingUp) {
+			self.x -= self.speed * Math.cos(self.rotation * Math.PI/180);
+			self.y -= self.speed * Math.sin(self.rotation * Math.PI/180);
+		}
+		if(self.pressingDown) {
+
+			self.x += self.speed * Math.cos(self.rotation * Math.PI/180);
+			self.y += self.speed * Math.sin(self.rotation * Math.PI/180);		
+		}
 		if (self.rotation >= 360)
 			self.rotation = 0;
+
+
+		
+		
 	
 	
 	}
@@ -93,7 +99,6 @@ setInterval(function() {
 			y:player.y,
 			speed: player.speed,
 			rotation: player.rotation,
-			number: player.number
 		});
 	}
 	for (var i in SOCKET_LIST) {
