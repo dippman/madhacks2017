@@ -8,15 +8,16 @@
   },
   "dependencies": {
     "express": "4.13.3",
-	"socket.io": "0.9.16",
-	"npm": "3.10.10"
+    "socket.io": "0.9.16"
+
   },
   "repository": {
 	"type": "git",
 	"url": "https://github.com/ebertz/madhacks2017"
   },
   "engines": {
-	"node": "6.9.5"
+	"node": "6.9.5",
+	"npm": "3.10.10"
   }
   
 }
