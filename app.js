@@ -36,10 +36,10 @@ var Player = function(id) {
 		}
 	self.updatePosition = function() {
 		if(self.pressingLeft) {
-			self.rotation-= 20;
+			self.rotation-= 14;
 		}
 		if(self.pressingRight)
-			self.rotation+= 20;
+			self.rotation+= 14;
 		if(self.pressingUp) {
 			self.x -= self.speed * Math.cos(self.rotation * Math.PI/180);
 			self.y -= self.speed * Math.sin(self.rotation * Math.PI/180);
@@ -61,12 +61,12 @@ var Player = function(id) {
 
 		if(self.x < 0)
 			self.x = 0;
-		if(self.x > 1150)
-			self.x = 1150;
+		if(self.x > 1350)
+			self.x = 1350;
 		if(self.y < 0)
 			self.y = 0;
-		if (self.y > 550)
-			self.y = 550;
+		if (self.y > 600)
+			self.y = 600;
 		
 	
 	
