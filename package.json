@@ -2,10 +2,22 @@
   "name": "project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "express": "4.13.3",
+    "socket.io": "0.9.16"
+
+  },
+  "repository": {
+	"type": "git",
+	"url": "https://github.com/ebertz/madhacks2017"
+  },
+  "engines": {
+	"node": "6.9.5",
+	"npm": "3.10.10"
+  }
+  
 }
