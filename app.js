@@ -24,10 +24,12 @@ var Player = function(id) {
 		rotation:0,
 		maxSpeed: 5,
 		speed: 6,
+		name: '',
 		pressingLeft: false,
 		pressingRight: false,
 		pressingUp: false,
-		pressingDown: false
+		pressingDown: false,
+		pressingSpace: false
 		}
 	self.updatePosition = function() {
 		if(self.pressingLeft) {
@@ -72,6 +74,10 @@ io.sockets.on('connection', function(socket) {
 			delete PLAYER_LIST[socket.id];
 		});
 		
+		socket.on('Name', function(data) {
+			player.name = data.Name;
+		});
+		
 		socket.on('keypress', function(data) {
 			if(data.inputId === 'left') {
 				player.pressingLeft = data.state;
@@ -99,6 +105,7 @@ setInterval(function() {
 			y:player.y,
 			speed: player.speed,
 			rotation: player.rotation,
+			name: player.name
 		});
 	}
 	for (var i in SOCKET_LIST) {
