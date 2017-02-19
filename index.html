@@ -7,7 +7,7 @@ https://cdn.socket.io/socket.io-1.4.5.js"
 	var ctx = document.getElementById("ctx").getContext("2d");
 	ctx.font = '30px Arial';
 	var socket = io();
-	var name = window.prompt("Enter your name:","Rupert");
+	var name = window.prompt("Enter your name:","Anonymous");
 	if(name != null)
 		socket.emit('Name', {Name:name});
 	var color = '#' + Math.random().toString(16).slice(2, 8).toUpperCase();
@@ -33,16 +33,12 @@ https://cdn.socket.io/socket.io-1.4.5.js"
 			ctx.stroke();
 			ctx.fillStyle = data.player[i].color;
 			ctx.fill();
-
-
 			//*****
 			//ctx.fillRect(-25,-25,50,50);
-
-			ctx.fillText(data.player[i].name,-25,40);
+			ctx.fillText(data.player[i].name,-50,35);
 			
 			ctx.restore();
 			
-
 		}
 		for(var i = 0; i < data.bullet.length; i++) {
 			ctx.save();
@@ -50,7 +46,6 @@ https://cdn.socket.io/socket.io-1.4.5.js"
 			ctx.fillRect(data.bullet[i].x, data.bullet[i].y + 20, 5, 5);
 			ctx.restore();
 		}
-
 	});
 	
 	document.addEventListener('keydown', function(event) {
@@ -81,14 +76,13 @@ https://cdn.socket.io/socket.io-1.4.5.js"
 		
 	});
 	
-
 </script>
 </style>
 <!DOCTYPE html>
 
 <head>
     <meta charset="utf-8">
-    <title>window</title>
+    <title>Starships</title>
     <style>
     html, body {
       width: 100%;
@@ -110,10 +104,8 @@ https://cdn.socket.io/socket.io-1.4.5.js"
         htmlCanvas = document.getElementById('ctx'),
         // Obtain a graphics context on the canvas element for drawing.
         context = htmlCanvas.getContext('2d');
-
        // Start listening to resize events and draw canvas.
        initialize();
-
        function initialize() {
            // Register an event listener to call the resizeCanvas() function 
            // each time the window is resized.
@@ -121,14 +113,12 @@ https://cdn.socket.io/socket.io-1.4.5.js"
            // Draw canvas border for the first time.
            resizeCanvas();
         }
-
         // Display custom canvas. In this case it's a blue, 5 pixel 
         // border that resizes along with the browser window.
         function redraw() {
            context.lineWidth = '5';
            context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
         }
-
         // Runs each time the DOM window resize event fires.
         // Resets the canvas dimensions to match window,
         // then draws the new borders accordingly.
@@ -138,7 +128,6 @@ https://cdn.socket.io/socket.io-1.4.5.js"
             redraw();
         }
     })();
-
     </script>
 </body> 
 </html>
