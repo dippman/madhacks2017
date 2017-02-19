@@ -22,10 +22,11 @@ var Player = function(id) {
 		x:250,
 		y:250,
 		id:id,
+		color: '#FF0000',
 		rotation:0,
-		maxSpeed: 22,
-		speed: 22,
-		attack_timer: 5,
+		maxSpeed: 30,
+		speed: 30,
+		attack_timer: 4,
 		name: '',
 		pressingLeft: false,
 		pressingRight: false,
@@ -35,10 +36,10 @@ var Player = function(id) {
 		}
 	self.updatePosition = function() {
 		if(self.pressingLeft) {
-			self.rotation-= 10;
+			self.rotation-= 20;
 		}
 		if(self.pressingRight)
-			self.rotation+= 10;
+			self.rotation+= 20;
 		if(self.pressingUp) {
 			self.x -= self.speed * Math.cos(self.rotation * Math.PI/180);
 			self.y -= self.speed * Math.sin(self.rotation * Math.PI/180);
@@ -53,7 +54,7 @@ var Player = function(id) {
 		if(self.pressingSpace && self.attack_timer === 0) {
 			//if(Bullet.list.length < 10)
 				Bullet(self.x, self.y, self.rotation);
-			self.attack_timer  = 5;
+			self.attack_timer  = 4;
 		}
 		if (self.attack_timer > 0)
 			self.attack_timer--;
@@ -84,7 +85,8 @@ Player.update = function() {
 			y:player.y,
 			speed: player.speed,
 			rotation: player.rotation,
-			name: player.name
+			name: player.name,
+			color: player.color
 		});
 	}
 	return pack;
@@ -154,6 +156,11 @@ io.sockets.on('connection', function(socket) {
 		socket.on('Name', function(data) {
 			player.name = data.Name;
 		});
+		socket.on('color', function(data) {
+			player.color = data.color;
+			console.log('color set');
+		});
+		
 		
 		socket.on('keypress', function(data) {
 			if(data.inputId === 'left') {
