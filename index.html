@@ -1,6 +1,5 @@
-<canvas id ="ctx" width="500" height="700" style="border:1px
+<canvas id ="ctx" width="1200" height="600" style="border:1px
 solid #000000;"></canvas>
-
 <script src="
 https://cdn.socket.io/socket.io-1.4.5.js"
 ></script>
@@ -14,18 +13,22 @@ https://cdn.socket.io/socket.io-1.4.5.js"
 		socket.emit('Name', {Name:name});
 	//updates the position of each object in sockets
 	socket.on('newPositions', function(data) {
-		ctx.clearRect(0,0,500,700);
+		ctx.clearRect(0,0,1200,600);
 		ctx.font = '12px Arial';
-		for (var i = 0; i < data.length; i++) {
+		for (var i = 0; i < data.player.length; i++) {
 			ctx.save();
-			ctx.translate(data[i].x +25,data[i].y + 25);
-			ctx.rotate(Math.PI/180 * data[i].rotation);
+			ctx.translate(data.player[i].x +25,data.player[i].y + 25);
+			ctx.rotate(Math.PI/180 * data.player[i].rotation);
 			ctx.fillRect(-25,-25,50,50);
 
-			ctx.fillText(data[i].name,-25,40);
+			ctx.fillText(data.player[i].name,-25,40);
 			
 			ctx.restore();
+			
 
+		}
+		for(var i = 0; i < data.bullet.length; i++) {
+			ctx.fillRect(data.bullet[i].x, data.bullet[i].y, 10, 10);
 		}
 
 	});
@@ -39,6 +42,8 @@ https://cdn.socket.io/socket.io-1.4.5.js"
 			socket.emit('keypress', {inputId:'left', state:true});
 		else if (event.keyCode === 38)
 			socket.emit('keypress', {inputId:'up', state:true});
+		else if (event.keyCode === 32) //space
+			socket.emit('keypress', {inputId:'space', state:true});
 		
 		
 	});
@@ -51,6 +56,8 @@ https://cdn.socket.io/socket.io-1.4.5.js"
 			socket.emit('keypress', {inputId:'left', state:false});
 		else if (event.keyCode === 38)
 			socket.emit('keypress', {inputId:'up', state:false});
+		else if (event.keyCode === 32) //space
+			socket.emit('keypress', {inputId:'space', state:false});
 		
 	});
 </script>
